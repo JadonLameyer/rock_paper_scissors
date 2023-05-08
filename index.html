@@ -7,29 +7,68 @@
     <title>Rock Paper Scissors</title>
 </head>
 <body>
-    <p>Click the button to get Computer Choice</p> <!-- This is a paragraph element with text to prompt the user to click the button -->
-    <button onclick="getComputerChoice()">Click me</button> <!-- This is a button element with an onclick attribute that calls the getComputerChoice() function when clicked -->
-    <p id="choice"></p> <!-- This is a paragraph element with an id of "choice" that will be updated with the result of the function -->
-    
-    <label for="playerSelection">Choose An Option:</label>
-    <select id="options" size="1">
-        <option value="options" selected>--Options--</option>
-        <option value="rock">Rock</option>
-        <option value="paper">Paper</option>
-        <option value="scissors">Scissors</option>
-    </select>
+    <p>Welcome to the Rock Paper Scissors Game!</p>
+    <img src="/Users/jadon/Library/CloudStorage/OneDrive-UniversityofCapeTown/Personal Programming/Odion Project/Foundations Course/project_repo/hands.gif"/>
+    <p></p>
 
+    <label>Choose An Option:</label>
+    <form name="playerOptions">
+        <select id="options" size="1">
+            <!-- <option value="options" selected>--Options--</option> -->
+            <option value="rock">Rock</option>
+            <option value="paper">Paper</option>
+            <option value="scissors">Scissors</option>
+        </select>
+    </form>
+
+    <p>The Winner of this game of Rock-Papper-Scissors is...</p> <!-- This is a paragraph element with text to prompt the user to click the button -->
+    <button onclick="playRound(getPlayerChoice(),getComputerChoice())">Click for Outcome</button> <!-- This is a button element with an onclick attribute that calls the getComputerChoice() function when clicked -->
+    <p id="outcomeOfGame"></p> <!-- This is a paragraph element with an id of "choice" that will be updated with the result of the function -->
+
+    <button onclick="getDecisions()">The Computer and Player choices were: </button> <!-- This is a button element with an onclick attribute that calls the getComputerChoice() function when clicked -->
+    <p id="decisions"></p> <!-- This is a paragraph element with an id of "choice" that will be updated with the result of the function -->
+    
     <script>
+        var player;
+        var computer;
+
         function getComputerChoice(){
             var rps_choices = ['Rock', 'Paper', 'Scissor']; // This is an array with the possible choices
             var choice = rps_choices[Math.floor(Math.random()*3)]; // This is a random selection of a choice from the array
-            var element = document.getElementById("choice"); // This is a reference to the HTML element with an id of "choice"
-            element.innerHTML = "The choice made by computer is: " + choice; // This updates the content of the element with the result of the function
+            computer = choice;
+            return computer;
         }
-        var player = document.getElementById("playerSelection")
 
-        function playRound(playerSelection, computerSelection){
+        function getPlayerChoice(){
+            const formElement = document.forms["playerOptions"];
+            const selectElement = formElement.elements["options"];
+            const selectedOptionElement = selectElement.options[selectElement.selectedIndex];
+            const selectedOptionText = selectedOptionElement.text;
+            player = selectedOptionText
+            return player;
+        }
 
+        function playRound(playerSelection, computerSelection) {
+            var outcome; 
+
+            if (playerSelection == computerSelection){
+                //return "Try again! You drew"
+                outcome = "Try again! You drew";
+            }
+            else if ( (playerSelection == "Rock" && computerSelection == "Paper") || (playerSelection == "Paper" && computerSelection == "Scissor") || (playerSelection == "Scissor" && computerSelection == "Rock")  ){
+                //return "Computer won! "+computerSelection+" beats"+playerSelection;
+                outcome = "Computer won! "+computerSelection+" beats "+playerSelection;
+            }
+            else{
+                //return "Player won! "+playerSelection+" beats"+computerSelection;
+                outcome = "Player won! "+playerSelection+" beats "+computerSelection;
+            }
+            var element = document.getElementById("outcomeOfGame"); // This is a reference to the HTML element with an id of "playerChoice"
+            element.innerHTML = "The choice made by player was: " + outcome; // This updates the content of the element with the result of the function
+          }
+          function getDecisions(){
+            var element = document.getElementById("decisions"); 
+            element.innerHTML = "Player: "+player +"& Computer: "+computer; 
         }
     </script>
 </body>
