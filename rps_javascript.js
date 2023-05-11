@@ -69,6 +69,11 @@ function playRound(playerSelection, computerSelection){
         }
         document.getElementById("winner").innerHTML = winner;
         gameCounter = 0;
+        playerScore = 0;
+        computerScore = 0;
+    }
+    else{
+        document.getElementById("winner").innerHTML = "game on-going...";
     }
   }
 
